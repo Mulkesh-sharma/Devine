@@ -1,7 +1,7 @@
 // app/pages/privacy-policy.tsx
 'use client';
 
-import React from 'react';
+import React, { JSX } from 'react';
 import Link from 'next/link';
 
 export default function PrivacyPolicy(): JSX.Element {

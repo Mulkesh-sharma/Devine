@@ -1,11 +1,11 @@
 // app/components/Footer.tsx
 'use client';
 
-import React from 'react';
+import React, { JSX } from 'react';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 import Link from 'next/link';
 
-export default function Footer(): React.JSX.Element {
+export default function Footer(): JSX.Element {
   return (
     <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white pt-12">
       {/* Top Section */}
