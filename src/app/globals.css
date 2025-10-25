@@ -1,0 +1,18 @@
+/* ✅ Import fonts FIRST */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* ✅ Then Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ✅ Then your custom CSS */
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+html, body, #__next {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  
+}
