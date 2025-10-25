@@ -30,7 +30,9 @@ function HomeClient({ services }: { services: Service[] }) {
         <h1 className="text-3xl font-bold">Book a Panditji for any pooja</h1>
         <p className="text-slate-600 mt-2">Quickly find trained pandits for home rituals, havan, and ceremonies.</p>
         <div className="mt-4">
-          <Link href="/services" className="inline-block px-4 py-2 bg-teal-500 text-white rounded">Browse Services</Link>
+          <Link href="/services" className="inline-block px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-medium shadow-lg hover:shadow-xl">
+            Browse All Services
+          </Link>
         </div>
       </section>
 

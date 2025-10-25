@@ -8,7 +8,7 @@ export const services: Service[] = [
     description: 'Simple Ganesh puja for auspicious beginnings - 30 minutes.',
     durationMinutes: 30,
     priceINR: 501,
-    image: '/images/ganesh.jpg',
+    image: '/images/pooja/ganesh.jpg',
   },
   {
     id: 's2',
@@ -16,7 +16,7 @@ export const services: Service[] = [
     description: 'Family ritual for prosperity and blessings - 60 minutes.',
     durationMinutes: 60,
     priceINR: 1501,
-    image: '/images/satyanarayan.jpg',
+    image: '/images/pooja/satyanarayan.jpg',
   },
   {
     id: 's3',
@@ -24,7 +24,7 @@ export const services: Service[] = [
     description: 'Special havan for health and peace - 90 minutes.',
     durationMinutes: 90,
     priceINR: 3501,
-    image: '/images/havan.jpg',
+    image: '/images/pooja/hawan.jpg',
   },
   {
     id: 's4',
@@ -32,7 +32,7 @@ export const services: Service[] = [
     description: 'Worship of Goddess Lakshmi for wealth and prosperity - 45 minutes.',
     durationMinutes: 45,
     priceINR: 751,
-    image: '/images/lakshmi.jpg',
+    image: '/images/pooja/lakshmi-puja.webp',
   },
   {
     id: 's5',
@@ -40,7 +40,7 @@ export const services: Service[] = [
     description: 'Special puja during Navratri festival for divine blessings - 60 minutes.',
     durationMinutes: 60,
     priceINR: 1201,
-    image: '/images/navratri.jpg',
+    image: '/images/pooja/navratri.jpg',
   },
   {
     id: 's6',
@@ -48,7 +48,7 @@ export const services: Service[] = [
     description: 'House warming ceremony for new home - 75 minutes.',
     durationMinutes: 75,
     priceINR: 2501,
-    image: '/images/griha-pravesh.jpg',
+    image: '/images/pooja/grah-pravesh.webp',
   },
   {
     id: 's7',
@@ -56,7 +56,7 @@ export const services: Service[] = [
     description: 'Vastu dosh rectification ceremony - 90 minutes.',
     durationMinutes: 90,
     priceINR: 3501,
-    image: '/images/vastu.jpg',
+    image: '/images/pooja/vashtu.webp',
   },
   {
     id: 's8',
@@ -64,7 +64,7 @@ export const services: Service[] = [
     description: 'Complete wedding rituals and ceremonies - 180 minutes.',
     durationMinutes: 180,
     priceINR: 7501,
-    image: '/images/wedding.jpg',
+    image: '/images/pooja/wedding.webp',
   },
   {
     id: 's9',
@@ -72,7 +72,7 @@ export const services: Service[] = [
     description: 'Special puja dedicated to Lord Shiva - 60 minutes.',
     durationMinutes: 60,
     priceINR: 1501,
-    image: '/images/rudrabhishek.jpg',
+    image: '/images/pooja/rudrabhishek.webp',
   },
   {
     id: 's10',
@@ -80,7 +80,7 @@ export const services: Service[] = [
     description: 'Special puja for birthday celebrations and longevity - 45 minutes.',
     durationMinutes: 45,
     priceINR: 751,
-    image: '/images/birthday.jpg',
+    image: '/images/pooja/birthday.webp',
   },
   {
     id: 's11',
@@ -88,7 +88,7 @@ export const services: Service[] = [
     description: 'First haircut ceremony for infants - 60 minutes.',
     durationMinutes: 60,
     priceINR: 1501,
-    image: '/images/mundan.jpg',
+    image: '/images/pooja/mundan.webp',
   },
   {
     id: 's12',
@@ -96,6 +96,6 @@ export const services: Service[] = [
     description: 'Special puja for wedding anniversaries - 45 minutes.',
     durationMinutes: 45,
     priceINR: 1001,
-    image: '/images/anniversary.jpg',
+    image: '/images/pooja/aniversary.webp',
   }
 ];
