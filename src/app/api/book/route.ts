@@ -3,11 +3,50 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    // TODO: persist to DB or send email/SMS. For demo just echo back.
-    console.log('Booking received:', body);
-    return NextResponse.json({ ok: true, data: body });
+    const bookingData = await request.json();
+    
+    // Get token from Authorization header
+    const authHeader = request.headers.get('authorization');
+    const token = authHeader?.replace('Bearer ', '');
+    
+    // Transform frontend booking data to backend format
+    const backendBookingData = {
+      service: bookingData.serviceId,
+      bookingDate: bookingData.dateTime ? new Date(bookingData.dateTime).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+      bookingTime: bookingData.dateTime ? new Date(bookingData.dateTime).toTimeString().split(' ')[0].substring(0, 5) : '10:00',
+      address: 'At user location', // Default value, can be updated
+      contactPerson: bookingData.name,
+      contactPhone: bookingData.phone,
+      poojaDetails: {
+        title: bookingData.serviceTitle,
+        specialInstructions: ''
+      },
+      pricing: {
+        totalAmount: 0, // Will be calculated based on service
+        currency: 'INR'
+      }
+    };
+    
+    // Forward the request to the backend API
+    const backendResponse = await fetch('http://localhost:5000/api/bookings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` }),
+      },
+      body: JSON.stringify(backendBookingData),
+    });
+
+    const data = await backendResponse.json();
+
+    if (!backendResponse.ok) {
+      return NextResponse.json(data, { status: backendResponse.status });
+    }
+
+    // Return the backend response
+    return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json({ ok: false, error: 'Invalid request' }, { status: 400 });
+    console.error('Booking proxy error:', err);
+    return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 });
   }
 }

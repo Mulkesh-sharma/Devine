@@ -1,20 +1,34 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 
 export async function POST(req: Request) {
-  const newUser = await req.json();
-  const filePath = path.join(process.cwd(), 'src', 'lib', 'users', 'users.json');
-  const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const userData = await req.json();
 
-  if (data.find((u: any) => u.email === newUser.email || u.phone === newUser.phone)) {
-    return NextResponse.json({ message: 'User already exists' }, { status: 400 });
+  try {
+    // Forward the request to the backend API
+    const backendResponse = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: userData.name,
+        email: userData.email,
+        password: userData.password,
+        phone: userData.phone,
+        role: userData.role || 'user'
+      }),
+    });
+
+    const data = await backendResponse.json();
+
+    if (!backendResponse.ok) {
+      return NextResponse.json(data, { status: backendResponse.status });
+    }
+
+    // Return the backend response
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('Signup proxy error:', error);
+    return NextResponse.json({ message: 'Server error' }, { status: 500 });
   }
-
-  data.push(newUser);
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-
-  // Remove password from response for security
-  const { password: _, ...userWithoutPassword } = newUser;
-  return NextResponse.json({ message: 'Signup successful', user: userWithoutPassword });
 }

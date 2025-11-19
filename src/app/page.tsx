@@ -1,51 +1,114 @@
 // app/page.tsx
-'use client'
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { services } from '../lib/dummyServices';
-import ServiceCard from './components/ServiceCard';
+import { ServiceCard, PageLayout, Section, Button, cn } from './components';
 import BookingDialog from './components/BookingDialog';
 import type { Service } from '../lib/types';
 
-export default function HomePage() {
-  // note: ServiceCard + BookingDialog are client components, so we call them normally
-  // we must manage booking state in a client wrapper — simplest approach: use client wrapper component below
-  return <HomeClient services={services} />;
-}
-
-
-import { useState } from 'react';
-
-function HomeClient({ services }: { services: Service[] }) {
+function HomeClient() {
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Service | null>(null);
   const [open, setOpen] = useState(false);
 
-  function onBook(s: Service) {
-    setSelected(s);
+  useEffect(() => {
+    fetchServices();
+  }, []);
+
+  async function fetchServices() {
+    try {
+      const response = await fetch('/api/services');
+      const data = await response.json();
+      
+      if (data.success) {
+        // Get only popular services for home page
+        const popularServices = data.data.services
+          .filter((service: any) => service.isPopular)
+          .map((backendService: any) => ({
+            id: backendService._id,
+            title: backendService.title,
+            description: backendService.description,
+            durationMinutes: backendService.durationMinutes,
+            priceINR: backendService.priceINR,
+            image: backendService.images?.[0] || '',
+            duration: backendService.duration,
+            location: backendService.location,
+            language: backendService.pujaLanguage,
+            benefits: backendService.benefits,
+            category: backendService.category,
+            difficulty: backendService.difficulty,
+            pujaLanguage: backendService.pujaLanguage,
+            images: backendService.images,
+            tags: backendService.tags,
+            isPopular: backendService.isPopular,
+            isActive: backendService.isActive,
+            bookingCount: backendService.bookingCount,
+            rating: backendService.rating,
+            createdBy: backendService.createdBy,
+            createdAt: backendService.createdAt,
+            updatedAt: backendService.updatedAt,
+          }));
+        
+        setServices(popularServices);
+      }
+    } catch (error) {
+      console.error('Failed to fetch services:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function onBook(service: Service) {
+    setSelected(service);
     setOpen(true);
   }
+
+  if (loading) {
+    return (
+      <PageLayout gradient>
+        <Section centered>
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+          </div>
+        </Section>
+      </PageLayout>
+    );
+  }
+
   return (
-    <div className="px-4 py-8">
-      <section className="mb-8">
-        <h1 className="text-3xl font-bold">Book a Panditji for any pooja</h1>
-        <p className="text-slate-600 mt-2">Quickly find trained pandits for home rituals, havan, and ceremonies.</p>
-        <div className="mt-4">
-          <Link href="/services" className="inline-block px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-medium shadow-lg hover:shadow-xl">
-            Browse All Services
+    <PageLayout gradient>
+      {/* Hero Section */}
+      <Section centered>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          Book a Panditji for any pooja
+        </h1>
+        <p className="text-xl text-gray-300 mb-8 max-w-3xl">
+          Quickly find trained pandits for home rituals, havan, and ceremonies.
+        </p>
+        <div>
+          <Link href="/services">
+            <Button size="lg">
+              Browse All Services
+            </Button>
           </Link>
         </div>
-      </section>
+      </Section>
 
-      <section>
-        <h2 className="text-2xl font-semibold mb-4">Popular services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Popular Services Section */}
+      <Section title="Popular Services" subtitle="Most requested spiritual services by our community">
+        <div className={cn.layout.grid}>
           {services.map((s) => (
             <ServiceCard key={s.id} service={s} onBook={onBook} />
           ))}
         </div>
-      </section>
+      </Section>
 
       <BookingDialog open={open} service={selected} onClose={() => setOpen(false)} />
-    </div>
+    </PageLayout>
   );
+}
+
+export default function HomePage() {
+  return <HomeClient />;
 }

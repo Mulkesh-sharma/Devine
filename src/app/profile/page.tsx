@@ -55,13 +55,13 @@ export default function ProfilePage() {
           {/* Profile Avatar */}
           <div className="flex items-center mb-8">
             <div className="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center text-3xl font-bold text-orange-600 mr-6">
-              {user.firstName.charAt(0).toUpperCase()}{user.lastName.charAt(0).toUpperCase()}
+              {user.name.charAt(0).toUpperCase()}
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-800">
-                {user.firstName} {user.lastName}
+                {user.name}
               </h2>
-              <p className="text-gray-600">Member since {new Date().toLocaleDateString()}</p>
+              <p className="text-gray-600">Member since {new Date(user.createdAt).toLocaleDateString()}</p>
             </div>
           </div>
         </div>
@@ -73,12 +73,8 @@ export default function ProfilePage() {
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Personal Information</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border">{user.firstName}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border">{user.lastName}</p>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border">{user.name}</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
@@ -89,19 +85,23 @@ export default function ProfilePage() {
                 <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border">{user.phone}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
-                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border">{user.age} years old</p>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border capitalize">{user.role}</p>
               </div>
             </div>
           </div>
 
-          {/* Address Information */}
+          {/* Account Information */}
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Address</h3>
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Account Information</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Full Address</label>
-                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border min-h-[80px]">{user.address}</p>
+                <label className="block text-sm font-medium text-gray-700 mb-1">User ID</label>
+                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border text-sm">{user._id}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Member Since</label>
+                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border">{new Date(user.createdAt).toLocaleDateString()}</p>
               </div>
             </div>
 

@@ -4,6 +4,8 @@
 import React, { JSX } from 'react';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 import Link from 'next/link';
+import { Button, SocialLink } from './ui';
+import { NewsletterForm, ContactInfo, TrustBadge } from './common';
 
 export default function Footer(): JSX.Element {
   return (
@@ -20,18 +22,10 @@ export default function Footer(): JSX.Element {
             Your trusted partner for authentic spiritual ceremonies and rituals. Connect with certified pandits for meaningful spiritual experiences.
           </p>
           <div className="flex space-x-4">
-            <a href="#" aria-label="Facebook" className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors">
-              <FaFacebookF className="text-white" />
-            </a>
-            <a href="#" aria-label="Instagram" className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors">
-              <FaInstagram className="text-white" />
-            </a>
-            <a href="#" aria-label="LinkedIn" className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors">
-              <FaLinkedinIn className="text-white" />
-            </a>
-            <a href="#" aria-label="Twitter" className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors">
-              <FaTwitter className="text-white" />
-            </a>
+            <SocialLink href="#" label="Facebook" icon={<FaFacebookF className="text-white" />} />
+            <SocialLink href="#" label="Instagram" icon={<FaInstagram className="text-white" />} />
+            <SocialLink href="#" label="LinkedIn" icon={<FaLinkedinIn className="text-white" />} />
+            <SocialLink href="#" label="Twitter" icon={<FaTwitter className="text-white" />} />
           </div>
         </div>
 
@@ -50,43 +44,20 @@ export default function Footer(): JSX.Element {
         {/* Customer Support */}
         <div>
           <h3 className="font-semibold mb-4 text-lg text-orange-400">SUPPORT</h3>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li className="flex items-center">
-              <span className="text-orange-400 mr-2">📧</span>
-              <a href="mailto:info@devinerituals.com" className="hover:text-orange-400 transition-colors">
-                info@devinerituals.com
-              </a>
-            </li>
-            <li className="flex items-center">
-              <span className="text-orange-400 mr-2">📞</span>
-              <a href="tel:+918806588064" className="hover:text-orange-400 transition-colors">
-                +91 88065 88064
-              </a>
-            </li>
-            <li className="flex items-center">
-              <span className="text-orange-400 mr-2">🕒</span>
-              <span>24/7 Support Available</span>
-            </li>
-          </ul>
+          <ContactInfo 
+            items={[
+              { icon: '📧', text: 'info@devinerituals.com', href: 'mailto:info@devinerituals.com' },
+              { icon: '📞', text: '+91 88065 88064', href: 'tel:+918806588064' },
+              { icon: '🕒', text: '24/7 Support Available' },
+            ]}
+          />
         </div>
 
         {/* Newsletter */}
         <div>
           <h3 className="font-semibold mb-4 text-lg text-orange-400">STAY UPDATED</h3>
           <p className="text-gray-300 text-sm mb-4">Get latest updates on new services and spiritual insights.</p>
-          <form className="flex flex-col space-y-3">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="px-4 py-2 rounded-lg text-gray-800 outline-none focus:ring-2 focus:ring-orange-400"
-            />
-            <button
-              type="submit"
-              className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition-colors"
-            >
-              SUBSCRIBE
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
       </div>
 
@@ -126,24 +97,9 @@ export default function Footer(): JSX.Element {
         {/* Trust Badges */}
         <div className="mt-8 pt-6 border-t border-gray-700">
           <div className="flex flex-col md:flex-row justify-center items-center gap-8 text-center">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">✓</span>
-              </div>
-              <span className="text-gray-300 text-sm">Verified Pandits</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">🔒</span>
-              </div>
-              <span className="text-gray-300 text-sm">Secure Payments</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">⭐</span>
-              </div>
-              <span className="text-gray-300 text-sm">100% Authentic</span>
-            </div>
+            <TrustBadge icon="✓" text="Verified Pandits" />
+            <TrustBadge icon="🔒" text="Secure Payments" />
+            <TrustBadge icon="⭐" text="100% Authentic" />
           </div>
         </div>
       </div>

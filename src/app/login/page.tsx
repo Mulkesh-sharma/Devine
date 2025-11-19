@@ -26,8 +26,7 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        login(data.user);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        login(data.user, data.token);
         setMessage('Login successful!');
         setError('');
         setTimeout(() => router.push('/'), 1200);

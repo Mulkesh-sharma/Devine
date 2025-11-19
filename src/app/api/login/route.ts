@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 
 export async function POST(req: Request) {
   const { identifier, password } = await req.json();
@@ -9,25 +7,29 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: 'Email/Phone and password are required' }, { status: 400 });
   }
 
-  const filePath = path.join(process.cwd(), 'src', 'lib', 'users', 'users.json');
-
   try {
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    const user = data.find((u: any) =>
-      (u.email === identifier || u.phone === identifier) && u.password === password
-    );
+    // Forward the request to the backend API
+    const backendResponse = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: identifier, // Backend expects email
+        password: password
+      }),
+    });
 
-    if (user) {
-      // Remove password from response for security
-      const { password: _, ...userWithoutPassword } = user;
-      return NextResponse.json({
-        message: 'Login successful',
-        user: userWithoutPassword
-      });
-    } else {
-      return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+    const data = await backendResponse.json();
+
+    if (!backendResponse.ok) {
+      return NextResponse.json(data, { status: backendResponse.status });
     }
+
+    // Return the backend response
+    return NextResponse.json(data);
   } catch (error) {
+    console.error('Login proxy error:', error);
     return NextResponse.json({ message: 'Server error' }, { status: 500 });
   }
 }

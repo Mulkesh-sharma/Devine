@@ -36,9 +36,15 @@ export default function BookingDialog({ open, service, onClose }: Props) {
 
     // call your API route
     try {
+      // Get token from localStorage
+      const token = localStorage.getItem('token');
+      
       const res = await fetch('/api/book', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(token && { 'Authorization': `Bearer ${token}` })
+        },
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Failed');
