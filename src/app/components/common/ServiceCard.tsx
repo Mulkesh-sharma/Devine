@@ -34,7 +34,7 @@ export default function ServiceCard({ service, onBook }: ServiceCardProps): JSX.
     <Card variant="hover" className="h-full flex flex-col overflow-hidden group">
       {/* Service Image */}
       {service.image && (
-        <div className="relative h-48 overflow-hidden">
+        <div className="relative h-48 overflow-hidden rounded-lg">
           <img 
             src={service.image} 
             alt={service.title}
