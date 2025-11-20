@@ -6,7 +6,7 @@ import { ServiceCard, PageLayout, Section, Button, cn } from './components';
 import BookingDialog from './components/BookingDialog';
 import type { Service } from '../lib/types';
 
-function HomeClient() {
+export function HomeClient() {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Service | null>(null);
@@ -20,7 +20,7 @@ function HomeClient() {
     try {
       const response = await fetch('/api/services');
       const data = await response.json();
-      
+
       if (data.success) {
         // Get only popular services for home page
         const popularServices = data.data.services
@@ -49,7 +49,7 @@ function HomeClient() {
             createdAt: backendService.createdAt,
             updatedAt: backendService.updatedAt,
           }));
-        
+
         setServices(popularServices);
       }
     } catch (error) {
@@ -83,9 +83,11 @@ function HomeClient() {
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
           Book a Panditji for any pooja
         </h1>
-        <p className="text-xl text-gray-300 mb-8 max-w-3xl">
-          Quickly find trained pandits for home rituals, havan, and ceremonies.
-        </p>
+        <div className='text-center align-center'>
+          <h3 className="text-xl text-gray-300 mb-8">
+            Quickly find trained pandits for home rituals, havan, and ceremonies.
+          </h3>
+        </div>
         <div>
           <Link href="/services">
             <Button size="lg">
