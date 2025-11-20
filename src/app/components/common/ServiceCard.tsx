@@ -49,7 +49,7 @@ export default function ServiceCard({ service, onBook }: ServiceCardProps): JSX.
         </div>
       )}
       
-      <CardHeader>
+      <CardHeader className='mt-4'>
         <div className="flex justify-between items-start">
           <h3 className="text-xl font-bold text-orange-400">{service.title}</h3>
           <Badge variant="orange">₹{service.priceINR}</Badge>
