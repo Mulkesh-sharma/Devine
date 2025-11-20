@@ -5,10 +5,14 @@ import Link from 'next/link';
 import { ServiceCard, PageLayout, Section, Button, cn } from './components';
 import BookingDialog from './components/BookingDialog';
 import type { Service } from '../lib/types';
+import { EmptyState } from '@/components/EmptyState';
+import { FiRefreshCw } from 'react-icons/fi';
 
 export function HomeClient() {
   const [services, setServices] = useState<Service[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Service | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -16,46 +20,63 @@ export function HomeClient() {
     fetchServices();
   }, []);
 
-  async function fetchServices() {
+  const fetchServices = async (isRefresh = false) => {
     try {
+      setError(null);
+      if (isRefresh) setRefreshing(true);
+      else setLoading(true);
+      
       const response = await fetch('/api/services');
+      
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+      
       const data = await response.json();
 
-      if (data.success) {
-        // Get only popular services for home page
-        const popularServices = data.data.services
-          .filter((service: any) => service.isPopular)
-          .map((backendService: any) => ({
-            id: backendService._id,
-            title: backendService.title,
-            description: backendService.description,
-            durationMinutes: backendService.durationMinutes,
-            priceINR: backendService.priceINR,
-            image: backendService.images?.[0] || '',
-            duration: backendService.duration,
-            location: backendService.location,
-            language: backendService.pujaLanguage,
-            benefits: backendService.benefits,
-            category: backendService.category,
-            difficulty: backendService.difficulty,
-            pujaLanguage: backendService.pujaLanguage,
-            images: backendService.images,
-            tags: backendService.tags,
-            isPopular: backendService.isPopular,
-            isActive: backendService.isActive,
-            bookingCount: backendService.bookingCount,
-            rating: backendService.rating,
-            createdBy: backendService.createdBy,
-            createdAt: backendService.createdAt,
-            updatedAt: backendService.updatedAt,
-          }));
-
-        setServices(popularServices);
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to fetch services');
       }
+
+      // Get only popular services for home page
+      const popularServices = Array.isArray(data.data?.services) 
+        ? data.data.services
+            .filter((service: any) => service.isPopular)
+            .map((backendService: any) => ({
+              id: backendService._id,
+              title: backendService.title,
+              description: backendService.description,
+              durationMinutes: backendService.durationMinutes,
+              priceINR: backendService.priceINR,
+              image: backendService.images?.[0] || '',
+              duration: backendService.duration,
+              location: backendService.location,
+              language: backendService.pujaLanguage,
+              benefits: backendService.benefits,
+              category: backendService.category,
+              difficulty: backendService.difficulty,
+              pujaLanguage: backendService.pujaLanguage,
+              images: backendService.images,
+              tags: backendService.tags,
+              isPopular: backendService.isPopular,
+              isActive: backendService.isActive,
+              bookingCount: backendService.bookingCount,
+              rating: backendService.rating,
+              createdBy: backendService.createdBy,
+              createdAt: backendService.createdAt,
+              updatedAt: backendService.updatedAt,
+            }))
+        : [];
+
+      setServices(popularServices);
+      
     } catch (error) {
       console.error('Failed to fetch services:', error);
+      setError(error instanceof Error ? error.message : 'An unknown error occurred');
+      setServices([]);
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   }
 
@@ -70,6 +91,7 @@ export function HomeClient() {
         <Section centered>
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+            
           </div>
         </Section>
       </PageLayout>
@@ -98,13 +120,47 @@ export function HomeClient() {
       </Section>
 
       {/* Popular Services Section */}
-      <Section title="Popular Services" subtitle="Most requested spiritual services by our community">
-        <div className={cn.layout.grid}>
-          {services.map((s) => (
-            <ServiceCard key={s.id} service={s} onBook={onBook} />
-          ))}
-        </div>
-      </Section>
+      <Section>
+              {error ? (
+                <div className="text-center py-12">
+                  <EmptyState
+                    title="Error loading services"
+                    description={error}
+                    actionText="Try Again"
+                    onAction={() => fetchServices(true)}
+                    actionIcon={
+                      <FiRefreshCw className="-ml-0.5 mr-1.5 h-5 w-5" />
+                    }
+                  />
+                </div>
+              ) : refreshing ? (
+                <div className="text-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+                </div>
+              ) : services.length === 0 ? (
+                <div className="text-center py-12">
+                  <EmptyState
+                    title="No services found"
+                    description="We couldn't find any services matching your criteria."
+                    actionText="Refresh"
+                    onAction={() => fetchServices(true)}
+                    actionIcon={
+                      <FiRefreshCw className="-ml-0.5 mr-1.5 h-5 w-5" />
+                    }
+                  />
+                </div>
+              ) : (
+                <div className={cn.layout.grid}>
+                  {services.map((service) => (
+                    <ServiceCard 
+                      key={service.id} 
+                      service={service} 
+                      onBook={onBook} 
+                    />
+                  ))}
+                </div>
+              )}
+            </Section>
 
       <BookingDialog open={open} service={selected} onClose={() => setOpen(false)} />
     </PageLayout>
