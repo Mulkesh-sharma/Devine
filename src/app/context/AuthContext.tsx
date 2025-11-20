@@ -3,7 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 interface User {
   _id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   role: string;
@@ -49,12 +50,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const login = (user: User, token: string) => {
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
-    setUser(user);
-    setToken(token);
-    setIsAuthenticated(true);
+  const login = (userData: User, userToken: string) => {
+    // Ensure backward compatibility with name field if needed
+    const userWithName = {
+      ...userData,
+      name: userData.firstName + (userData.lastName ? ' ' + userData.lastName : '')
+    };
+    setUser(userData);
+    setToken(userToken);
+    localStorage.setItem('token', userToken);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {

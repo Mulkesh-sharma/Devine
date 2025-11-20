@@ -26,10 +26,21 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        login(data.user, data.token);
+        // Transform the user data to match our frontend's expected format
+        const userData = data.data.user;
+        const [firstName, ...lastNameParts] = userData.name ? userData.name.split(' ') : ['', ''];
+        const transformedUser = {
+          ...userData,
+          firstName: firstName || '',
+          lastName: lastNameParts.join(' ') || '',
+        };
+        
+        login(transformedUser, data.data.token);
         setMessage('Login successful!');
         setError('');
-        setTimeout(() => router.push('/'), 1200);
+        // Redirect to admin dashboard if user is admin, otherwise to home page
+        const redirectPath = data.user?.role === 'admin' ? '/admin' : '/';
+        setTimeout(() => router.push(redirectPath), 1200);
       } else {
         setError(data.message || 'Login failed');
         setMessage('');
