@@ -79,14 +79,20 @@ export default function LoginPage() {
 
         <input
           placeholder="Email or Phone"
+          autoComplete="username"
+          autoCorrect="off"
+          autoCapitalize="none"
+          spellCheck="false"
           value={identifier}
           onChange={e => setIdentifier(e.target.value)}
           required
-          className="w-full border px-4 py-2.5 mb-4 rounded-md"
+          className="w-full border px-4 py-2.5 mb-4 rounded-md display-none"
+          
         />
 
         <input
           type="password"
+          autoComplete="new-password"
           placeholder="Password"
           value={password}
           onChange={e => setPassword(e.target.value)}

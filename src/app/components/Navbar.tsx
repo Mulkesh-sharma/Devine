@@ -16,14 +16,29 @@ export default function Navbar() {
   const [filteredServices, setFilteredServices] = useState<Service[]>([]);
   const { user, logout } = useAuth();
 
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'All Pujas', href: '/services' },
-    { name: 'Articles', href: '/articles' },
-    { name: 'Privacy Policy', href: '/privacyPolicy' },
-    ...(user ? [{ name: 'Profile', href: '/profile' }] : []),
-  ];
+  // 🔥 Dynamic Home link based on role
+ // Dynamic HOME link
+const homeLink = user?.role === 'admin' ? '/admin' : '/';
+
+// Dynamic navigation links
+const navLinks = [
+  { name: 'Home', href: homeLink },
+  { name: 'About', href: '/about' },
+  { name: 'All Pujas', href: '/services' },
+  { name: 'Articles', href: '/articles' },
+  { name: 'Privacy Policy', href: '/privacyPolicy' },
+
+  // Show Profile ONLY for normal users
+  ...(user && user.role !== 'admin'
+    ? [{ name: 'Profile', href: '/profile' }]
+    : []),
+
+  // Show Dashboard ONLY for admins
+  ...(user && user?.role !== 'admin'
+    ? [{ name: 'Dashboard', href: '/admin' }]
+    : []),
+];
+
 
   useEffect(() => {
     const controlNavbar = () => {
@@ -36,7 +51,6 @@ export default function Navbar() {
         setLastScrollY(window.scrollY);
       }
     };
-
     window.addEventListener('scroll', controlNavbar);
     return () => window.removeEventListener('scroll', controlNavbar);
   }, [lastScrollY]);
@@ -55,11 +69,16 @@ export default function Navbar() {
   return (
     <nav className={`bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600 fixed w-full z-50 shadow-lg transition-all duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-white hover:text-amber-200 transition-colors">
+
+        {/* BRAND LOGO */}
+        <Link
+          href={homeLink}  // HOME redirect based on user role
+          className="text-2xl font-bold text-white hover:text-amber-200 transition-colors"
+        >
           Devine Rituals
         </Link>
 
-        {/* Search */}
+        {/* SEARCH BAR */}
         <div className="relative hidden md:block flex-1 mx-8 max-w-md">
           <input
             type="text"
@@ -68,9 +87,8 @@ export default function Navbar() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70">
-            🔍
-          </div>
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70">🔍</div>
+
           {filteredServices.length > 0 && (
             <ul className="absolute z-50 bg-white border border-gray-200 w-full mt-2 max-h-60 overflow-auto rounded-xl shadow-xl">
               {filteredServices.map((service) => (
@@ -89,7 +107,7 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Desktop Links */}
+        {/* DESKTOP NAV */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
@@ -100,6 +118,8 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
+
+          {/* PROFILE + LOGOUT */}
           {user ? (
             <div className="flex items-center gap-4 ml-4">
               <Link
@@ -128,13 +148,16 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Menu Button */}
-        <button className="md:hidden p-2 rounded-lg bg-white/20 text-white hover:bg-white/30 transition-all" onClick={() => setOpen(!open)}>
+        {/* MOBILE MENU BUTTON */}
+        <button
+          className="md:hidden p-2 rounded-lg bg-white/20 text-white hover:bg-white/30 transition-all"
+          onClick={() => setOpen(!open)}
+        >
           {open ? <CloseIcon /> : <MenuIcon />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU */}
       {open && (
         <div className="md:hidden bg-gradient-to-r from-orange-600 to-amber-700 border-t border-white/20">
           <div className="flex flex-col p-6 gap-4">
@@ -148,6 +171,8 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+
+            {/* PROFILE + LOGOUT */}
             {user ? (
               <>
                 <Link
