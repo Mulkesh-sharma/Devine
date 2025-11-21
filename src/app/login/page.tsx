@@ -25,27 +25,45 @@ export default function LoginPage() {
 
       const data = await res.json();
 
-      if (res.ok) {
-        // Transform the user data to match our frontend's expected format
-        const userData = data.data.user;
-        const [firstName, ...lastNameParts] = userData.name ? userData.name.split(' ') : ['', ''];
-        const transformedUser = {
-          ...userData,
-          firstName: firstName || '',
-          lastName: lastNameParts.join(' ') || '',
-        };
-        
-        login(transformedUser, data.data.token);
-        setMessage('Login successful!');
-        setError('');
-        // Redirect to admin dashboard if user is admin, otherwise to home page
-        const redirectPath = data.user?.role === 'admin' ? '/admin' : '/';
-        setTimeout(() => router.push(redirectPath), 1200);
-      } else {
+      if (!res.ok) {
         setError(data.message || 'Login failed');
         setMessage('');
+        return;
       }
-    } catch (err: any) {
+
+      const userData = data.data.user;
+
+      // Split full name into first/last
+      const [firstName, ...lastNameParts] = userData.name
+        ? userData.name.split(' ')
+        : ['', ''];
+
+      const transformedUser = {
+        ...userData,
+        firstName: firstName || '',
+        lastName: lastNameParts.join(' ') || '',
+        role: userData.role,
+      };
+
+      // 🔥 Save to React Context
+      login(transformedUser, data.data.token);
+
+      // 🔥 Save token cookie (needed for middleware)
+      document.cookie = `token=${data.data.token}; path=/; max-age=604800`;
+
+      // 🔥 Save user cookie (middleware needs it)
+      document.cookie = `user=${encodeURIComponent(
+        JSON.stringify(transformedUser)
+      )}; path=/; max-age=604800`;
+
+      setMessage('Login successful!');
+      setError('');
+
+      const redirectPath =
+        transformedUser.role === 'admin' ? '/admin' : '/';
+
+      router.push(redirectPath);
+    } catch (err) {
       setError('Server error. Please try again.');
       setMessage('');
     }
@@ -53,32 +71,38 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100">
-      <form onSubmit={handleLogin} className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-100">
+      <form onSubmit={handleLogin} className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center text-orange-600">Login</h1>
-        {error && <p className="text-red-500 mb-4 text-center font-medium">{error}</p>}
-        {message && <p className="text-green-600 mb-4 text-center font-medium">{message}</p>}
+
+        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+        {message && <p className="text-green-500 mb-4 text-center">{message}</p>}
 
         <input
           placeholder="Email or Phone"
           value={identifier}
           onChange={e => setIdentifier(e.target.value)}
           required
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-4 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
+          className="w-full border px-4 py-2.5 mb-4 rounded-md"
         />
+
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-6 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
+          className="w-full border px-4 py-2.5 mb-6 rounded-md"
         />
-        <button type="submit" className="w-full bg-gradient-to-r from-orange-500 to-amber-500 text-white py-2.5 rounded-lg hover:from-orange-600 hover:to-amber-600 transition-all font-medium shadow-lg hover:shadow-xl">
+
+        <button
+          type="submit"
+          className="w-full bg-orange-500 text-white py-2.5 rounded-md"
+        >
           Login
         </button>
 
-        <p className="text-sm mt-4 text-center text-gray-600">
-          Don’t have an account? <Link href="/signup" className="text-orange-500 hover:text-orange-600 font-medium hover:underline transition-colors">Sign Up</Link>
+        <p className="text-sm mt-4 text-center">
+          Don’t have an account? <Link href="/signup" className="text-orange-600 font-bold">Sign Up</Link>
         </p>
       </form>
     </div>

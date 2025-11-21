@@ -2,26 +2,29 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('token')?.value;
-  const user = request.cookies.get('user')?.value;
-  const isAdminPage = request.nextUrl.pathname.startsWith('/admin');
-  const isAuthPage = ['/login', '/register'].includes(request.nextUrl.pathname);
+  const token = request.cookies.get('token')?.value || null;
+  const userCookie = request.cookies.get('user')?.value || null;
 
-  // If there's no token and user is trying to access admin page, redirect to login
-  if (isAdminPage && !token) {
+  const url = request.nextUrl;
+  const pathname = url.pathname;
+
+  const isAdminRoute = pathname.startsWith('/admin');
+  const isAuthPage = pathname === '/login' || pathname === '/register';
+
+  // Not logged in → block admin
+  if (isAdminRoute && !token) {
     const loginUrl = new URL('/login', request.url);
-    loginUrl.searchParams.set('from', request.nextUrl.pathname);
+    loginUrl.searchParams.set('from', pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  // If user is logged in and tries to access auth pages, redirect to home or admin
-  if (isAuthPage && token && user) {
+  // Logged in → block login/register
+  if (isAuthPage && token && userCookie) {
     try {
-      const userData = JSON.parse(user);
-      const redirectUrl = userData.role === 'admin' ? '/admin' : '/';
+      const user = JSON.parse(decodeURIComponent(userCookie));
+      const redirectUrl = user.role === 'admin' ? '/admin' : '/';
       return NextResponse.redirect(new URL(redirectUrl, request.url));
-    } catch (e) {
-      // If there's an error parsing user, clear cookies and redirect to login
+    } catch {
       const response = NextResponse.redirect(new URL('/login', request.url));
       response.cookies.delete('token');
       response.cookies.delete('user');
@@ -29,14 +32,14 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // If user is not admin and tries to access admin page, redirect to home
-  if (isAdminPage && user) {
+  // Only admins may access /admin
+  if (isAdminRoute && userCookie) {
     try {
-      const userData = JSON.parse(user);
-      if (userData.role !== 'admin') {
+      const user = JSON.parse(decodeURIComponent(userCookie));
+      if (user.role !== 'admin') {
         return NextResponse.redirect(new URL('/', request.url));
       }
-    } catch (e) {
+    } catch {
       const response = NextResponse.redirect(new URL('/login', request.url));
       response.cookies.delete('token');
       response.cookies.delete('user');
@@ -48,9 +51,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/admin/:path*',
-    '/login',
-    '/register',
-  ],
+  matcher: ['/admin/:path*', '/login', '/register'],
 };

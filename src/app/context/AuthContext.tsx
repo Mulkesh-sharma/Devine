@@ -1,4 +1,5 @@
 'use client';
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 interface User {
@@ -23,8 +24,8 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps>({
   user: null,
   token: null,
-  login: () => {},
-  logout: () => {},
+  login: () => { },
+  logout: () => { },
   isAuthenticated: false,
 });
 
@@ -33,41 +34,42 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // 🔥 Restore auth from localStorage on reload
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    const storedToken = localStorage.getItem('token');
-    
-    if (storedUser && storedToken) {
-      try {
+    try {
+      const storedUser = localStorage.getItem('user');
+      const storedToken = localStorage.getItem('token');
+
+      if (storedUser && storedToken) {
         setUser(JSON.parse(storedUser));
         setToken(storedToken);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error('Error parsing stored user:', error);
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        setIsAuthenticated(true); // 🔥 FIXED
       }
+    } catch (err) {
+      console.error("Failed to load auth:", err);
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
     }
   }, []);
 
+  // 🔥 Login - save user + token
   const login = (userData: User, userToken: string) => {
-    // Ensure backward compatibility with name field if needed
-    const userWithName = {
-      ...userData,
-      name: userData.firstName + (userData.lastName ? ' ' + userData.lastName : '')
-    };
     setUser(userData);
     setToken(userToken);
-    localStorage.setItem('token', userToken);
+    setIsAuthenticated(true); // 🔥 FIXED
+
     localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', userToken);
   };
 
+  // 🔥 Logout - remove everything
   const logout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
     setUser(null);
     setToken(null);
     setIsAuthenticated(false);
+
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   return (
