@@ -23,7 +23,7 @@ export default function PageLayout({
   className = '',
   ...props
 }: PageLayoutProps): JSX.Element {
-  const layoutClasses = `min-h-screen ${gradient ? cn.gradients.dark : 'bg-gray-900'} text-white ${className}`;
+  const layoutClasses = `min-h-screen ${gradient ? cn.gradients.dark : 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900'} text-white ${className}`;
   
   return (
     <div className={layoutClasses} {...props}>
