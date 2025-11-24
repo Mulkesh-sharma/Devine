@@ -55,11 +55,11 @@ export default function ProfilePage() {
           {/* Profile Avatar */}
           <div className="flex items-center mb-8">
             <div className="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center text-3xl font-bold text-orange-600 mr-6">
-              {user.name.charAt(0).toUpperCase()}
+              {user.firstName?.charAt(0).toUpperCase() || 'U'}
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-800">
-                {user.name}
+                {user.firstName} {user.lastName}
               </h2>
               <p className="text-gray-600">Member since {new Date(user.createdAt).toLocaleDateString()}</p>
             </div>
@@ -74,7 +74,9 @@ export default function ProfilePage() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border">{user.name}</p>
+                <p className="text-gray-900 bg-gray-50 px-3 py-2 rounded border">
+                  {user.firstName} {user.lastName}
+                </p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>

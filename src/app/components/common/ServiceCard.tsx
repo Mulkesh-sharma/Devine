@@ -132,10 +132,10 @@ export default function ServiceCard({
               </Button>
 
               <Button
-                variant="danger"
+                variant="outline"
                 size="sm"
                 onClick={() => onDelete && onDelete(service.id)}
-                className="w-full"
+                className="w-full text-red-500 border-red-500 hover:bg-red-500 hover:text-white"
               >
                 Delete
               </Button>
@@ -150,8 +150,9 @@ export default function ServiceCard({
             <div>
               <Button
                 variant="outline"
-                size="xs"
+                size="sm"
                 onClick={() => onToggleActive && onToggleActive(service.id, !service.isActive)}
+                className="text-xs"
               >
                 {service.isActive ? 'Deactivate' : 'Activate'}
               </Button>

@@ -3,14 +3,40 @@
 
 import React from 'react';
 import Link from 'next/link';
-import type { Service } from '../../lib/types';
+import { Card, CardHeader, CardBody, CardFooter, Badge, Button } from '../components';
 
-type Props = {
+interface Service {
+  id: string;
+  title: string;
+  description: string;
+  durationMinutes: number;
+  priceINR: number;
+  image?: string;
+  duration?: string;
+  location?: string;
+  language?: string;
+  benefits?: string[];
+  category?: string;
+  isActive?: boolean;
+}
+
+interface ServiceCardProps {
   service: Service;
-  onBook: (s: Service) => void;
-};
+  onBook?: (service: Service) => void;
+  adminMode?: boolean;
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
+  onToggleActive?: (id: string, nextActive: boolean) => void;
+}
 
-export default function ServiceCard({ service, onBook }: Props) {
+export default function ServiceCard({
+  service,
+  onBook,
+  adminMode = false,
+  onEdit,
+  onDelete,
+  onToggleActive,
+}: ServiceCardProps) {
   return (
     <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-orange-200 group">
       {service.image && (
@@ -36,12 +62,14 @@ export default function ServiceCard({ service, onBook }: Props) {
           <div className="text-sm text-gray-500">
             ⏱️ {service.durationMinutes} minutes
           </div>
-          <button
-            onClick={() => onBook(service)}
-            className="px-6 py-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-lg hover:from-orange-600 hover:to-amber-600 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-          >
-            Book Now
-          </button>
+          {onBook && (
+            <button
+              onClick={() => onBook(service)}
+              className="px-6 py-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-lg hover:from-orange-600 hover:to-amber-600 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            >
+              Book Now
+            </button>
+          )}
         </div>
       </div>
     </div>

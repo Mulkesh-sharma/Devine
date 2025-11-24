@@ -41,9 +41,11 @@ export default function SignupPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
 
-      // Save user locally and update context
-      login(data.user);
+      // Save user and token locally and update context
+      const token = data.token || ''; // Assuming the token is returned in data.token
+      login(data.user, token);
       localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', token);
 
       setError('');
       setMessage('Signup successful! Redirecting...');
