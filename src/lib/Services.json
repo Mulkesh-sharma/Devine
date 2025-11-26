@@ -1,0 +1,574 @@
+[
+    {
+        "id": "s1",
+        "title": "Ganesh Puja (Home)",
+        "description": "Simple Ganesh puja for auspicious beginnings - 30 minutes. This traditional ceremony invokes Lord Ganesha's blessings for success and removes obstacles.",
+        "durationMinutes": 30,
+        "priceINR": 501,
+        "image": "/images/pooja/ganesh.jpg",
+        "duration": "30 minutes",
+        "location": "At Home",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Basic Puja",
+        "difficulty": "Easy",
+        "benefits": [
+            "Removes obstacles and hurdles",
+            "Brings success in new ventures",
+            "Provides mental peace and clarity",
+            "Blessings for new beginnings"
+        ],
+        "panditDetails": "Experienced Vedic pandit with 10+ years of experience in traditional Ganesh ceremonies",
+        "materials": [
+            "Ganesh idol or picture",
+            "Flowers (marigold, jasmine)",
+            "Durva grass",
+            "Modak or sweets",
+            "Incense sticks",
+            "Diya (lamp)",
+            "Kumkum and rice"
+        ],
+        "procedure": [
+            "Sankalpa (intention setting)",
+            "Ganesh mantra chanting",
+            "Offering flowers and sweets",
+            "Aarti ceremony",
+            "Prasad distribution"
+        ],
+        "included": [
+            "Experienced pandit",
+            "All puja materials",
+            "Online guidance via video call",
+            "Puja completion certificate"
+        ],
+        "excluded": [
+            "Physical venue",
+            "Food arrangements",
+            "Transportation costs"
+        ]
+    },
+    {
+        "id": "s2",
+        "title": "Satyanarayan Puja",
+        "description": "Family ritual for prosperity and blessings - 60 minutes. Dedicated to Lord Vishnu for wealth, health and happiness.",
+        "durationMinutes": 60,
+        "priceINR": 1501,
+        "image": "/images/pooja/satyanarayan.jpg",
+        "duration": "60 minutes",
+        "location": "At Home",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Prosperity Puja",
+        "difficulty": "Medium",
+        "benefits": [
+            "Brings prosperity and wealth",
+            "Maintains family harmony",
+            "Fulfills desires and wishes",
+            "Protects from negative energies"
+        ],
+        "panditDetails": "Senior pandit specializing in Satyanarayan Katha with expertise in Vedic rituals",
+        "materials": [
+            "Satyanarayan idol or picture",
+            "Panchamrit (milk, honey, yogurt, ghee, sugar)",
+            "Fruits and sweets",
+            "Banana leaves",
+            "Tulsi leaves",
+            "Coconut",
+            "Kalash (water pot)"
+        ],
+        "procedure": [
+            "Kalash sthapana",
+            "Satyanarayan katha (story telling)",
+            "Panchamrit abhishek",
+            "Aarti and mantra chanting",
+            "Prasad distribution to all"
+        ],
+        "included": [
+            "Complete puja materials",
+            "Experienced pandit",
+            "Katha book and guidance",
+            "Prasad preparation"
+        ],
+        "excluded": [
+            "Venue decoration",
+            "Food for guests",
+            "Additional puja items"
+        ]
+    },
+    {
+        "id": "s3",
+        "title": "Havan / Yajna",
+        "description": "Special havan for health and peace - 90 minutes. Sacred fire ritual to purify environment and invoke divine blessings.",
+        "durationMinutes": 90,
+        "priceINR": 3501,
+        "image": "/images/pooja/hawan.jpg",
+        "duration": "90 minutes",
+        "location": "At Home",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Fire Ritual",
+        "difficulty": "Hard",
+        "benefits": [
+            "Purifies environment and aura",
+            "Removes negative energies",
+            "Brings health and longevity",
+            "Creates positive vibrations"
+        ],
+        "panditDetails": "Expert havan specialist with deep knowledge of Vedic fire rituals and mantras",
+        "materials": [
+            "Havan kund (fire pit)",
+            "Sacred wood (samidra)",
+            "Ghee and clarified butter",
+            "Havan samagri (sacred herbs)",
+            "Camphor and incense",
+            "Rice and sesame seeds",
+            "Holy water from sacred rivers"
+        ],
+        "procedure": [
+            "Achaman (purification)",
+            "Mandala creation",
+            "Agni kram (fire establishment)",
+            "Mantra chanting with offerings",
+            "Purnahuti (final offering)",
+            "Ashirvad (blessings)"
+        ],
+        "included": [
+            "Portable havan kund",
+            "All sacred materials",
+            "Expert pandit guidance",
+            "Safety arrangements"
+        ],
+        "excluded": [
+            "Fire safety equipment",
+            "Venue preparation",
+            "Post-cleanup services"
+        ]
+    },
+    {
+        "id": "s4",
+        "title": "Lakshmi Puja",
+        "description": "Worship of Goddess Lakshmi for wealth and prosperity - 45 minutes. Invokes divine blessings for financial abundance.",
+        "durationMinutes": 45,
+        "priceINR": 751,
+        "image": "/images/pooja/lakshmi-puja.webp",
+        "duration": "45 minutes",
+        "location": "At Home",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Prosperity Puja",
+        "difficulty": "Easy",
+        "benefits": [
+            "Attracts wealth and prosperity",
+            "Brings financial stability",
+            "Removes financial obstacles",
+            "Blessings for business growth"
+        ],
+        "panditDetails": "Devoted Lakshmi puja specialist with expertise in traditional prosperity rituals",
+        "materials": [
+            "Lakshmi idol or picture",
+            "Lotus flowers",
+            "Coins and currency notes",
+            "Sweets (laddu, peda)",
+            "Kumkum and turmeric",
+            "Silver coins",
+            "Diya and incense"
+        ],
+        "procedure": [
+            "Ganesh puja (removing obstacles)",
+            "Lakshmi sthapana",
+            "Mahalakshmi mantra chanting",
+            "Offering of coins and sweets",
+            "Aarti and prasad distribution"
+        ],
+        "included": [
+            "All puja materials",
+            "Silver coins for offering",
+            "Traditional sweets",
+            "Expert pandit"
+        ],
+        "excluded": [
+            "Gold ornaments",
+            "Additional offerings",
+            "Food arrangements"
+        ]
+    },
+    {
+        "id": "s5",
+        "title": "Navratri Puja",
+        "description": "Special puja during Navratri festival for divine blessings - 60 minutes. Nine nights of goddess worship.",
+        "durationMinutes": 60,
+        "priceINR": 1201,
+        "image": "/images/pooja/navratri.jpg",
+        "duration": "60 minutes per day",
+        "location": "At Home",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Festival Puja",
+        "difficulty": "Medium",
+        "benefits": [
+            "Divine blessings of Goddess Durga",
+            "Protection from evil forces",
+            "Spiritual purification",
+            "Fulfillment of wishes"
+        ],
+        "panditDetails": "Navratri puja specialist with expertise in all nine forms of Goddess worship",
+        "materials": [
+            "Durga idol or picture",
+            "Red flowers and garlands",
+            "Fruits and sweets",
+            "Kumkum and chandan",
+            "Diya and incense",
+            "Navratri special offerings",
+            "Sacred water"
+        ],
+        "procedure": [
+            "Ghata sthapana (kalash)",
+            "Daily deity worship",
+            "Durga saptashati path",
+            "Aarti and bhajans",
+            "Prasad distribution"
+        ],
+        "included": [
+            "All puja materials",
+            "Daily guidance",
+            "Navratri prasad",
+            "Expert pandit"
+        ],
+        "excluded": [
+            "Garba dance arrangements",
+            "Community feast",
+            "Decoration materials"
+        ]
+    },
+    {
+        "id": "s6",
+        "title": "Griha Pravesh Puja",
+        "description": "House warming ceremony for new home - 75 minutes. Vastu purification and blessings for new residence.",
+        "durationMinutes": 75,
+        "priceINR": 2501,
+        "image": "/images/pooja/grah-pravesh.webp",
+        "duration": "75 minutes",
+        "location": "At New Home",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Life Event",
+        "difficulty": "Medium",
+        "benefits": [
+            "Purifies new home energy",
+            "Removes Vastu doshas",
+            "Brings prosperity to residents",
+            "Creates positive environment"
+        ],
+        "panditDetails": "Vastu expert and griha pravesh specialist with 15+ years of experience",
+        "materials": [
+            "Kalash and coconut",
+            "Mango leaves",
+            "Rice and turmeric",
+            "Lemon and chilies",
+            "Sacred water",
+            "Flowers and garlands",
+            "Vastu yantra"
+        ],
+        "procedure": [
+            "Vastu shanti puja",
+            "Entrance purification",
+            "Kalash sthapana",
+            "Navagraha puja",
+            "Homam (fire ritual)",
+            "House blessing ceremony"
+        ],
+        "included": [
+            "All puja materials",
+            "Vastu consultation",
+            "Yantra and talisman",
+            "Expert pandit"
+        ],
+        "excluded": [
+            "House cleaning",
+            "Decoration services",
+            "Food arrangements"
+        ]
+    },
+    {
+        "id": "s7",
+        "title": "Vastu Shanti Puja",
+        "description": "Vastu dosh rectification ceremony - 90 minutes. Corrects architectural and energy imbalances in property.",
+        "durationMinutes": 90,
+        "priceINR": 3501,
+        "image": "/images/pooja/vashtu.webp",
+        "duration": "90 minutes",
+        "location": "At Property",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Vastu Puja",
+        "difficulty": "Hard",
+        "benefits": [
+            "Removes Vastu doshas",
+            "Balances energy flow",
+            "Improves health and relationships",
+            "Enhances prosperity"
+        ],
+        "panditDetails": "Certified Vastu expert with deep knowledge of architectural energy corrections",
+        "materials": [
+            "Vastu purush yantra",
+            "Navagraha idols",
+            "Sacred herbs",
+            "Vastu shanti kit",
+            "Crystal and gemstones",
+            "Holy water from rivers",
+            "Energy cleansing materials"
+        ],
+        "procedure": [
+            "Vastu analysis",
+            "Energy purification",
+            "Yantra installation",
+            "Mantra chanting",
+            "Energy balancing rituals",
+            "Final blessings"
+        ],
+        "included": [
+            "Vastu analysis report",
+            "All correction materials",
+            "Expert Vastu pandit",
+            "Follow-up guidance"
+        ],
+        "excluded": [
+            "Structural changes",
+            "Interior redesign",
+            "Additional remedies"
+        ]
+    },
+    {
+        "id": "s8",
+        "title": "Wedding Ceremony",
+        "description": "Complete wedding rituals and ceremonies - 180 minutes. Traditional Hindu wedding with all sacred rites.",
+        "durationMinutes": 180,
+        "priceINR": 7501,
+        "image": "/images/pooja/wedding.webp",
+        "duration": "3 hours",
+        "location": "At Wedding Venue",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Life Event",
+        "difficulty": "Hard",
+        "benefits": [
+            "Divine blessing for couple",
+            "Strong marital bond",
+            "Prosperous married life",
+            "Family harmony"
+        ],
+        "panditDetails": "Senior wedding pandit with 20+ years of experience in complete wedding ceremonies",
+        "materials": [
+            "Mangal sutra",
+            "Wedding garlands",
+            "Sacred fire setup",
+            "Rice and flowers",
+            "Traditional wedding items",
+            "Holy water",
+            "Ceremonial vessels"
+        ],
+        "procedure": [
+            "Ganesh puja",
+            "Kanyadaan ceremony",
+            "Saptapadi (seven vows)",
+            "Mangal sutra tying",
+            "Sindoor application",
+            "Aashirvad (blessings)"
+        ],
+        "included": [
+            "Complete wedding materials",
+            "Senior wedding pandit",
+            "Ceremony guidance",
+            "Marriage certificate"
+        ],
+        "excluded": [
+            "Wedding venue",
+            "Food and catering",
+            "Decoration services"
+        ]
+    },
+    {
+        "id": "s9",
+        "title": "Rudrabhishek Puja",
+        "description": "Special puja dedicated to Lord Shiva - 60 minutes. Powerful Shiva worship for spiritual growth and blessings.",
+        "durationMinutes": 60,
+        "priceINR": 1501,
+        "image": "/images/pooja/rudrabhishek.webp",
+        "duration": "60 minutes",
+        "location": "At Home",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Shiva Puja",
+        "difficulty": "Medium",
+        "benefits": [
+            "Lord Shiva's blessings",
+            "Spiritual purification",
+            "Removes negative karma",
+            "Brings peace and prosperity"
+        ],
+        "panditDetails": "Shiva puja specialist with expertise in Rudrabhishek and Mahamrityunjay rituals",
+        "materials": [
+            "Shivling or Shiva idol",
+            "Bel leaves and flowers",
+            "Panchamrit",
+            "Holy water",
+            "Rudraksha beads",
+            "Datura flowers",
+            "Incense and diya"
+        ],
+        "procedure": [
+            "Shiva sthapana",
+            "Rudrabhishek with panchamrit",
+            "Mahamrityunjay mantra",
+            "Bel leaf offerings",
+            "Aarti and bhajans",
+            "Prasad distribution"
+        ],
+        "included": [
+            "All puja materials",
+            "Rudraksha mala",
+            "Shiva mantra book",
+            "Expert pandit"
+        ],
+        "excluded": [
+            "Additional offerings",
+            "Fasting guidance",
+            "Post-puja rituals"
+        ]
+    },
+    {
+        "id": "s10",
+        "title": "Birthday Puja",
+        "description": "Special puja for birthday celebrations and longevity - 45 minutes. Personalized birthday blessings.",
+        "durationMinutes": 45,
+        "priceINR": 751,
+        "image": "/images/pooja/birthday.webp",
+        "duration": "45 minutes",
+        "location": "At Home",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Personal Puja",
+        "difficulty": "Easy",
+        "benefits": [
+            "Long and healthy life",
+            "Success in coming year",
+            "Removes birth chart doshas",
+            "Divine protection"
+        ],
+        "panditDetails": "Birthday puja specialist with expertise in personalized birth chart analysis",
+        "materials": [
+            "Birthday person's photo",
+            "Birth chart details",
+            "Flowers and sweets",
+            "Incense and diya",
+            "Fruits and offerings",
+            "Personalized mantra items",
+            "Holy water"
+        ],
+        "procedure": [
+            "Birth chart analysis",
+            "Personalized sankalpa",
+            "Birthday specific mantras",
+            "Graha shanti puja",
+            "Aarti and blessings",
+            "Prasad distribution"
+        ],
+        "included": [
+            "Birth chart analysis",
+            "Personalized materials",
+            "Birthday prasad",
+            "Expert pandit"
+        ],
+        "excluded": [
+            "Birthday cake",
+            "Party arrangements",
+            "Additional gifts"
+        ]
+    },
+    {
+        "id": "s11",
+        "title": "Mundan Sanskar",
+        "description": "First haircut ceremony for infants - 60 minutes. Traditional tonsuring ceremony for spiritual purification.",
+        "durationMinutes": 60,
+        "priceINR": 1501,
+        "image": "/images/pooja/mundan.webp",
+        "duration": "60 minutes",
+        "location": "At Home/Temple",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Life Event",
+        "difficulty": "Easy",
+        "benefits": [
+            "Spiritual purification",
+            "Removes negative energies",
+            "Blessings for healthy growth",
+            "Traditional sanskar completion"
+        ],
+        "panditDetails": "Child sanskar specialist with experience in traditional infant ceremonies",
+        "materials": [
+            "Sacred razor/knife",
+            "Turmeric and sandalwood",
+            "Flowers and garlands",
+            "Coconut and sweets",
+            "Holy water",
+            "Traditional clothes",
+            "Offering items"
+        ],
+        "procedure": [
+            "Baby purification",
+            "Mundan ceremony",
+            "Mantra chanting",
+            "Head shaving ritual",
+            "Aarti and blessings",
+            "Celebration ceremony"
+        ],
+        "included": [
+            "All ceremony materials",
+            "Traditional razor",
+            "Expert pandit",
+            "Ceremony guidance"
+        ],
+        "excluded": [
+            "Baby clothes",
+            "Celebration food",
+            "Photography services"
+        ]
+    },
+    {
+        "id": "s12",
+        "title": "Anniversary Puja",
+        "description": "Special puja for wedding anniversaries - 45 minutes. Blessings for continued marital harmony and love.",
+        "durationMinutes": 45,
+        "priceINR": 1001,
+        "image": "/images/pooja/aniversary.webp",
+        "duration": "45 minutes",
+        "location": "At Home",
+        "pujaLanguage": "Hindi, English, Sanskrit",
+        "category": "Personal Puja",
+        "difficulty": "Easy",
+        "benefits": [
+            "Strengthens marital bond",
+            "Brings harmony and love",
+            "Removes relationship obstacles",
+            "Blessings for prosperity"
+        ],
+        "panditDetails": "Relationship blessing specialist with expertise in couple harmony rituals",
+        "materials": [
+            "Couple photograph",
+            "Wedding mementos",
+            "Flowers and garlands",
+            "Sweets and fruits",
+            "Incense and diya",
+            "Holy water",
+            "Relationship yantra"
+        ],
+        "procedure": [
+            "Couple purification",
+            "Relationship blessings",
+            "Ganesh puja",
+            "Couple mantras",
+            "Aarti ceremony",
+            "Prasad distribution"
+        ],
+        "included": [
+            "All puja materials",
+            "Relationship yantra",
+            "Expert pandit",
+            "Couple blessings"
+        ],
+        "excluded": [
+            "Anniversary gifts",
+            "Celebration arrangements",
+            "Counseling services"
+        ]
+    }
+]

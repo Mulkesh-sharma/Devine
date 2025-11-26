@@ -7,8 +7,11 @@ import { EmptyState } from '../../components/EmptyState';
 import BookingDialog from '../components/BookingDialog';
 import type { Service } from '../../lib/types';
 import { FiRefreshCw } from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext';
 
 function ServicesClient() {
+  const { user, token } = useAuth();
+  const isAdmin = user?.role === 'admin';
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -41,6 +44,7 @@ function ServicesClient() {
       // Transform backend services to frontend Service type
       const transformedServices = Array.isArray(data.data?.services) 
         ? data.data.services.map((backendService: any) => ({
+            _id: backendService._id,
             id: backendService._id,
             title: backendService.title,
             description: backendService.description,
@@ -82,6 +86,27 @@ function ServicesClient() {
     setSelected(service);
     setOpen(true);
   }
+
+  const handleDelete = async (id: string) => {
+    try {
+      const res = await fetch(`/api/services/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || 'Delete failed');
+      }
+
+      // Refresh services list
+      fetchServices(true);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed to delete service');
+    }
+  };
 
   if (loading) {
     return (
@@ -130,14 +155,16 @@ function ServicesClient() {
               <ServiceCard 
                 key={service.id} 
                 service={service} 
-                onBook={onBook} 
+                onBook={isAdmin ? undefined : onBook}
+                adminMode={isAdmin}
+                onDelete={isAdmin ? handleDelete : undefined}
               />
             ))}
           </div>
         )}
       </Section>
 
-      <BookingDialog open={open} service={selected} onClose={() => setOpen(false)} />
+      {!isAdmin && <BookingDialog open={open} service={selected} onClose={() => setOpen(false)} />}
     </PageLayout>
   );
 }

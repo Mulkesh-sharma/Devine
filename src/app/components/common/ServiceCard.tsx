@@ -3,6 +3,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Card, CardHeader, CardBody, CardFooter, Badge, Button } from '../ui'; // adjust import path if different
 
 interface Service {
@@ -37,6 +38,24 @@ export default function ServiceCard({
   onDelete,
   onToggleActive,
 }: ServiceCardProps) {
+  const router = useRouter();
+
+  const handleEdit = () => {
+    if (onEdit) {
+      onEdit(service.id);
+    } else {
+      router.push(`/admin/components/edit/${service.id}`);
+    }
+  };
+
+  const handleDelete = () => {
+    if (onDelete) {
+      if (window.confirm(`Are you sure you want to delete "${service.title}" pooja?`)) {
+        onDelete(service.id);
+      }
+    }
+  };
+
   return (
     <Card variant="hover" className="h-full flex flex-col overflow-hidden group">
       {/* Image */}
@@ -118,14 +137,14 @@ export default function ServiceCard({
             </>
           ) : (
             <>
-              <Link href={`/admin/poojas/edit/${service.id}`} className="flex-1">
+              <Link href={`/services/${service.id}`} className="flex-1">
                 <Button variant="outline" size="sm" className="w-full">View</Button>
               </Link>
 
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
-                onClick={() => onEdit && onEdit(service.id)}
+                onClick={handleEdit}
                 className="w-full"
               >
                 Edit
@@ -134,7 +153,7 @@ export default function ServiceCard({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => onDelete && onDelete(service.id)}
+                onClick={handleDelete}
                 className="w-full text-red-500 border-red-500 hover:bg-red-500 hover:text-white"
               >
                 Delete

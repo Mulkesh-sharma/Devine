@@ -1,5 +1,6 @@
 // app/api/book/route.ts
 import { NextResponse } from 'next/server';
+import { SERVER_API_ENDPOINTS } from '@/lib/config';
 
 export async function POST(request: Request) {
   try {
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
     };
     
     // Forward the request to the backend API
-    const backendResponse = await fetch('http://localhost:5000/api/bookings', {
+    const backendResponse = await fetch(SERVER_API_ENDPOINTS.BOOKINGS.CREATE, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

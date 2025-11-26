@@ -1,10 +1,9 @@
 // app/services/[id]/page.tsx
 'use client';
 
-import React, { JSX } from 'react';
+import React, { useEffect, useState } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { services } from '../../../lib/dummyServices';
 import { 
   PageLayout, 
   Section, 
@@ -23,16 +22,93 @@ export default function ServiceDetailPage({ params }: { params: { id: string } }
   return <ServiceDetailClient id={params.id} />;
 }
 
-import { useState } from 'react';
-
 function ServiceDetailClient({ id }: { id: string }) {
   const [open, setOpen] = useState(false);
-  
-  const service = services.find(s => s.id === id);
-  
-  if (!service) {
-    notFound();
+  const [service, setService] = useState<Service | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchService();
+  }, [id]);
+
+  const fetchService = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/services/${id}`);
+      
+      if (!response.ok) {
+        if (response.status === 404) {
+          notFound();
+        }
+        throw new Error('Failed to fetch service');
+      }
+
+      const data = await response.json();
+      
+      if (!data.success || !data.data || !data.data.service) {
+        throw new Error('Service not found');
+      }
+
+      // Transform backend service to frontend format
+      const backendService = data.data.service;
+      const transformedService: Service = {
+        id: backendService._id,
+        title: backendService.title,
+        description: backendService.description,
+        durationMinutes: backendService.durationMinutes,
+        priceINR: backendService.priceINR,
+        image: backendService.images?.[0] || '',
+        duration: backendService.duration,
+        location: backendService.location,
+        language: backendService.pujaLanguage,
+        benefits: backendService.benefits,
+        category: backendService.category,
+        difficulty: backendService.difficulty,
+        pujaLanguage: backendService.pujaLanguage,
+        panditDetails: backendService.panditDetails,
+        materials: backendService.materials,
+        procedure: backendService.procedure,
+        included: backendService.included,
+        excluded: backendService.excluded,
+      };
+
+      setService(transformedService);
+    } catch (err) {
+      console.error('Error fetching service:', err);
+      setError(err instanceof Error ? err.message : 'Failed to load service');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <PageLayout title="Loading..." subtitle="Please wait">
+        <Section>
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
+          </div>
+        </Section>
+      </PageLayout>
+    );
   }
+
+  if (error || !service) {
+    return (
+      <PageLayout title="Error" subtitle="Service not found">
+        <Section>
+          <div className="text-center py-12">
+            <p className="text-gray-300 mb-4">{error || 'Service not found'}</p>
+            <Link href="/services">
+              <Button variant="primary">Back to Services</Button>
+            </Link>
+          </div>
+        </Section>
+      </PageLayout>
+    );
+  }
+
 
   return (
     <PageLayout title={service.title} subtitle={service.description}>
@@ -224,32 +300,13 @@ function ServiceDetailClient({ id }: { id: string }) {
         )}
       </div>
 
-      {/* Related Services */}
+      {/* Related Services - Commented out for now, can be implemented with API call later
       <Section title="Related Services" subtitle="Similar ceremonies you might be interested in">
         <div className={cn.layout.grid}>
-          {services
-            .filter(s => s.id !== service.id && s.category === service.category)
-            .slice(0, 3)
-            .map(relatedService => (
-              <Card key={relatedService.id} variant="hover" className="h-full">
-                <CardHeader>
-                  <h3 className="text-lg font-bold text-orange-400">{relatedService.title}</h3>
-                  <Badge variant="orange">₹{relatedService.priceINR}</Badge>
-                </CardHeader>
-                <CardBody>
-                  <p className="text-gray-300 text-sm line-clamp-2">{relatedService.description}</p>
-                </CardBody>
-                <CardFooter>
-                  <Link href={`/services/${relatedService.id}`} className="w-full">
-                    <Button variant="outline" size="sm" className="w-full">
-                      View Details
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            ))}
+          Related services would go here
         </div>
       </Section>
+      */}
 
       <BookingDialog open={open} service={service} onClose={() => setOpen(false)} />
     </PageLayout>

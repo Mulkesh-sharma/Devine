@@ -7,8 +7,11 @@ import BookingDialog from './components/BookingDialog';
 import type { Service } from '../lib/types';
 import { EmptyState } from '@/components/EmptyState';
 import { FiRefreshCw } from 'react-icons/fi';
+import { useAuth } from './context/AuthContext';
 
 export function HomeClient() {
+  const { user, token } = useAuth();
+  const isAdmin = user?.role === 'admin';
   const [services, setServices] = useState<Service[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -38,11 +41,12 @@ export function HomeClient() {
         throw new Error(data.message || 'Failed to fetch services');
       }
 
-      // Get only popular services for home page
-      const popularServices = Array.isArray(data.data?.services) 
+      // Get first 6 services for home page
+      const homeServices = Array.isArray(data.data?.services) 
         ? data.data.services
-            .filter((service: any) => service.isPopular)
+            .slice(0, 6)
             .map((backendService: any) => ({
+              _id: backendService._id,
               id: backendService._id,
               title: backendService.title,
               description: backendService.description,
@@ -68,7 +72,7 @@ export function HomeClient() {
             }))
         : [];
 
-      setServices(popularServices);
+      setServices(homeServices);
       
     } catch (error) {
       console.error('Failed to fetch services:', error);
@@ -84,6 +88,26 @@ export function HomeClient() {
     setSelected(service);
     setOpen(true);
   }
+
+  const handleDelete = async (id: string) => {
+    try {
+      const res = await fetch(`/api/services/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || 'Delete failed');
+      }
+
+      fetchServices(true);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed to delete service');
+    }
+  };
 
   if (loading) {
     return (
@@ -155,14 +179,16 @@ export function HomeClient() {
                     <ServiceCard 
                       key={service.id} 
                       service={service} 
-                      onBook={onBook} 
+                      onBook={isAdmin ? undefined : onBook}
+                      adminMode={isAdmin}
+                      onDelete={isAdmin ? handleDelete : undefined}
                     />
                   ))}
                 </div>
               )}
             </Section>
 
-      <BookingDialog open={open} service={selected} onClose={() => setOpen(false)} />
+      {!isAdmin && <BookingDialog open={open} service={selected} onClose={() => setOpen(false)} />}
     </PageLayout>
   );
 }

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { SERVER_API_ENDPOINTS } from '@/lib/config';
 
 export async function POST(req: Request) {
   const { identifier, password } = await req.json();
@@ -9,14 +10,14 @@ export async function POST(req: Request) {
 
   try {
     // Forward the request to the backend API
-    const backendResponse = await fetch('http://localhost:5000/api/auth/login', {
+    const backendResponse = await fetch(SERVER_API_ENDPOINTS.AUTH.LOGIN, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: identifier, // Backend expects email
-        password: password
+        password
       }),
     });
 

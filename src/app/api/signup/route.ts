@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
+import { SERVER_API_ENDPOINTS } from '@/lib/config';
 
 export async function POST(req: Request) {
   const userData = await req.json();
 
   try {
     // Forward the request to the backend API
-    const backendResponse = await fetch('http://localhost:5000/api/auth/register', {
+    const backendResponse = await fetch(SERVER_API_ENDPOINTS.AUTH.REGISTER, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

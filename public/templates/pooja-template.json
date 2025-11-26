@@ -1,0 +1,94 @@
+[
+  {
+    "title": "Ganesh Puja (Home)",
+    "description": "Simple Ganesh puja for auspicious beginnings - 30 minutes. This traditional ceremony invokes Lord Ganesha's blessings for success and removes obstacles.",
+    "durationMinutes": 30,
+    "duration": "30 minutes",
+    "priceINR": 501,
+    "location": "At Home",
+    "pujaLanguage": "Hindi, English, Sanskrit",
+    "category": "Basic Puja",
+    "difficulty": "Easy",
+    "panditDetails": "Experienced Vedic pandit with 10+ years of experience in traditional Ganesh ceremonies",
+    "benefits": [
+      "Removes obstacles and hurdles",
+      "Brings success in new ventures",
+      "Provides mental peace and clarity",
+      "Blessings for new beginnings"
+    ],
+    "materials": [
+      "Ganesh idol or picture",
+      "Flowers (marigold, jasmine)",
+      "Durva grass",
+      "Modak or sweets",
+      "Incense sticks",
+      "Diya (lamp)",
+      "Kumkum and rice"
+    ],
+    "procedure": [
+      "Sankalpa (intention setting)",
+      "Ganesh mantra chanting",
+      "Offering flowers and sweets",
+      "Aarti ceremony",
+      "Prasad distribution"
+    ],
+    "included": [
+      "Experienced pandit",
+      "All puja materials",
+      "Online guidance via video call",
+      "Puja completion certificate"
+    ],
+    "excluded": [
+      "Physical venue",
+      "Food arrangements",
+      "Transportation costs"
+    ],
+    "image": "/images/pooja/ganesh.jpg"
+  },
+  {
+    "title": "Satyanarayan Puja",
+    "description": "Family ritual for prosperity and blessings - 60 minutes. Dedicated to Lord Vishnu for wealth, health and happiness.",
+    "durationMinutes": 60,
+    "duration": "60 minutes",
+    "priceINR": 1501,
+    "location": "At Home",
+    "pujaLanguage": "Hindi, English, Sanskrit",
+    "category": "Prosperity Puja",
+    "difficulty": "Medium",
+    "panditDetails": "Senior pandit specializing in Satyanarayan Katha with expertise in Vedic rituals",
+    "benefits": [
+      "Brings prosperity and wealth",
+      "Maintains family harmony",
+      "Fulfills desires and wishes",
+      "Protects from negative energies"
+    ],
+    "materials": [
+      "Satyanarayan idol or picture",
+      "Panchamrit (milk, honey, yogurt, ghee, sugar)",
+      "Fruits and sweets",
+      "Banana leaves",
+      "Tulsi leaves",
+      "Coconut",
+      "Kalash (water pot)"
+    ],
+    "procedure": [
+      "Kalash sthapana",
+      "Satyanarayan katha (story telling)",
+      "Panchamrit abhishek",
+      "Aarti and mantra chanting",
+      "Prasad distribution to all"
+    ],
+    "included": [
+      "Complete puja materials",
+      "Experienced pandit",
+      "Katha book and guidance",
+      "Prasad preparation"
+    ],
+    "excluded": [
+      "Venue decoration",
+      "Food for guests",
+      "Additional puja items"
+    ],
+    "image": "/images/pooja/satyanarayan.jpg"
+  }
+]

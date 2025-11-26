@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { SERVER_API_ENDPOINTS } from '@/lib/config';
 
 type RouteParams = {
   params: {
@@ -8,25 +9,26 @@ type RouteParams = {
 
 type Handler = (request: NextRequest, context: { params: Promise<{}> }) => Promise<Response>;
 
-const BACKEND_URL = 'http://localhost:5000/api/services';
+const SERVICES_ENDPOINTS = SERVER_API_ENDPOINTS.SERVICES;
 
 async function handleRequest(request: NextRequest, method: string, id: string = '') {
   try {
     const url = new URL(request.url);
-    const backendUrl = id ? `${BACKEND_URL}/${id}` : BACKEND_URL;
-    
+    const backendUrl = id ? SERVICES_ENDPOINTS.GET_BY_ID(id) : SERVICES_ENDPOINTS.GET_ALL;
+
     // For GET requests, forward query parameters
     const queryString = method === 'GET' ? url.searchParams.toString() : '';
     const fullUrl = queryString ? `${backendUrl}?${queryString}` : backendUrl;
-    
-    const requestBody = method !== 'GET' && method !== 'DELETE' 
-      ? await request.json() 
+
+    const requestBody = method !== 'GET' && method !== 'DELETE'
+      ? await request.json()
       : undefined;
 
     const backendResponse = await fetch(fullUrl, {
       method,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': request.headers.get('Authorization') || '',
       },
       body: requestBody ? JSON.stringify(requestBody) : undefined,
     });
@@ -41,7 +43,7 @@ async function handleRequest(request: NextRequest, method: string, id: string = 
   } catch (err) {
     console.error(`Services ${method} error:`, err);
     return NextResponse.json(
-      { success: false, message: 'Server error' }, 
+      { success: false, message: 'Server error' },
       { status: 500 }
     );
   }
