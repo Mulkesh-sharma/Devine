@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
+import ThreeBackground from '../components/ThreeBackground';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -62,20 +63,22 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100 p-6">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <ThreeBackground />
+      
       <form
         onSubmit={handleSignup}
-        className="bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl border border-gray-200"
+        className="relative z-10 bg-white/80 backdrop-blur-md p-8 rounded-xl shadow-2xl w-full max-w-2xl border border-white/50"
       >
-        <h1 className="text-3xl font-bold mb-6 text-center text-orange-600">
+        <h1 className="text-3xl font-bold mb-6 text-center text-orange-600 drop-shadow-sm">
           Create Your Account
         </h1>
 
         {error && (
-          <p className="text-red-500 mb-4 text-center font-medium">{error}</p>
+          <p className="text-red-500 mb-4 text-center font-medium bg-red-50 p-2 rounded">{error}</p>
         )}
         {message && (
-          <p className="text-green-600 mb-4 text-center font-medium">{message}</p>
+          <p className="text-green-600 mb-4 text-center font-medium bg-green-50 p-2 rounded">{message}</p>
         )}
 
         {/* Form Fields */}
@@ -93,7 +96,7 @@ export default function SignupPage() {
               value={form.firstName}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent outline-none transition-all bg-white/50"
               placeholder="John"
             />
           </div>
@@ -111,7 +114,7 @@ export default function SignupPage() {
               value={form.lastName}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent outline-none transition-all bg-white/50"
               placeholder="Doe"
             />
           </div>
@@ -130,7 +133,7 @@ export default function SignupPage() {
               value={form.email}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent outline-none transition-all bg-white/50"
               placeholder="john@example.com"
             />
           </div>
@@ -148,7 +151,7 @@ export default function SignupPage() {
               value={form.phone}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent outline-none transition-all bg-white/50"
               placeholder="+1 234 567 890"
             />
           </div>
@@ -167,7 +170,7 @@ export default function SignupPage() {
               value={form.password}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent outline-none transition-all bg-white/50"
               placeholder="••••••••"
             />
           </div>
@@ -186,7 +189,7 @@ export default function SignupPage() {
               value={form.age}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent outline-none transition-all bg-white/50"
               placeholder="25"
             />
           </div>
@@ -204,7 +207,7 @@ export default function SignupPage() {
               value={form.address}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent outline-none transition-all bg-white/50"
               placeholder="123 Main Street, City"
             />
           </div>
@@ -212,16 +215,16 @@ export default function SignupPage() {
 
         <button
           type="submit"
-          className="mt-6 w-full bg-orange-500 text-white py-2.5 rounded font-medium hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
+          className="w-full mt-8 bg-gradient-to-r from-orange-500 to-amber-500 text-white py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200"
         >
           Sign Up
         </button>
 
-        <p className="text-sm mt-4 text-center text-gray-600">
+        <p className="text-sm mt-6 text-center text-gray-600">
           Already have an account?{' '}
           <Link
             href="/login"
-            className="text-orange-500 font-medium hover:underline"
+            className="text-orange-600 font-bold hover:text-orange-700 hover:underline transition-colors"
           >
             Login
           </Link>

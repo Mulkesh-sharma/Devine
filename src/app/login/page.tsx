@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
+import ThreeBackground from '../components/ThreeBackground';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -70,45 +71,58 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100">
-      <form onSubmit={handleLogin} className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-6 text-center text-orange-600">Login</h1>
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <ThreeBackground />
+      
+      <form onSubmit={handleLogin} className="relative z-10 bg-white/80 backdrop-blur-md p-8 rounded-xl shadow-2xl w-full max-w-md border border-white/50">
+        <h1 className="text-3xl font-bold mb-6 text-center text-orange-600 drop-shadow-sm">Welcome Back</h1>
 
-        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
-        {message && <p className="text-green-500 mb-4 text-center">{message}</p>}
+        {error && <p className="text-red-500 mb-4 text-center font-medium bg-red-50 p-2 rounded">{error}</p>}
+        {message && <p className="text-green-500 mb-4 text-center font-medium bg-green-50 p-2 rounded">{message}</p>}
 
-        <input
-          placeholder="Email or Phone"
-          autoComplete="username"
-          autoCorrect="off"
-          autoCapitalize="none"
-          spellCheck="false"
-          value={identifier}
-          onChange={e => setIdentifier(e.target.value)}
-          required
-          className="w-full border px-4 py-2.5 mb-4 rounded-md display-none"
-          
-        />
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email or Phone</label>
+            <input
+              placeholder="Enter your email or phone"
+              autoComplete="username"
+              value={identifier}
+              onChange={e => setIdentifier(e.target.value)}
+              required
+              readOnly
+              onFocus={(e) => e.target.removeAttribute('readonly')}
+              className="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent outline-none transition-all bg-white/50"
+            />
+          </div>
 
-        <input
-          type="password"
-          autoComplete="new-password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-          className="w-full border px-4 py-2.5 mb-6 rounded-md"
-        />
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input
+              type="password"
+              autoComplete="current-password"
+              placeholder="••••••••"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              readOnly
+              onFocus={(e) => e.target.removeAttribute('readonly')}
+              className="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent outline-none transition-all bg-white/50"
+            />
+          </div>
+        </div>
 
         <button
           type="submit"
-          className="w-full bg-orange-500 text-white py-2.5 rounded-md"
+          className="w-full mt-8 bg-gradient-to-r from-orange-500 to-amber-500 text-white py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200"
         >
           Login
         </button>
 
-        <p className="text-sm mt-4 text-center">
-          Don’t have an account? <Link href="/signup" className="text-orange-600 font-bold">Sign Up</Link>
+        <p className="text-sm mt-6 text-center text-gray-600">
+          Don’t have an account?{' '}
+          <Link href="/signup" className="text-orange-600 font-bold hover:text-orange-700 hover:underline transition-colors">
+            Sign Up
+          </Link>
         </p>
       </form>
     </div>
