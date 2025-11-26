@@ -3,10 +3,11 @@ import { SERVER_API_ENDPOINTS } from '@/lib/config';
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const backendResponse = await fetch(`${SERVER_API_ENDPOINTS.SERVICES.GET_BY_ID(params.id)}`, {
+        const { id } = await params;
+        const backendResponse = await fetch(`${SERVER_API_ENDPOINTS.SERVICES.GET_BY_ID(id)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,12 +33,13 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const body = await request.json();
+        const { id } = await params;
 
-        const backendResponse = await fetch(`${SERVER_API_ENDPOINTS.SERVICES.UPDATE(params.id)}`, {
+        const backendResponse = await fetch(`${SERVER_API_ENDPOINTS.SERVICES.UPDATE(id)}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,10 +66,11 @@ export async function PUT(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const backendResponse = await fetch(`${SERVER_API_ENDPOINTS.SERVICES.DELETE(params.id)}`, {
+        const { id } = await params;
+        const backendResponse = await fetch(`${SERVER_API_ENDPOINTS.SERVICES.DELETE(id)}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
