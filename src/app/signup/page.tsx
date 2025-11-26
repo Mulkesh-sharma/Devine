@@ -51,7 +51,12 @@ export default function SignupPage() {
       setMessage('Signup successful! Redirecting...');
       setTimeout(() => router.push('/'), 1500);
     } catch (err: any) {
-      setError(err.message || 'Signup failed. Please try again.');
+      const errorMessage = err.message || 'Signup failed. Please try again.';
+      if (errorMessage.includes('User already exists')) {
+        setError('User already exists. Please login instead.');
+      } else {
+        setError(errorMessage);
+      }
       setMessage('');
     }
   };

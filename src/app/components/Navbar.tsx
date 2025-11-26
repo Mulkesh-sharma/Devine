@@ -29,14 +29,14 @@ const navLinks = [
   { name: 'Privacy Policy', href: '/privacyPolicy' },
 
   // Show Profile ONLY for normal users
-  ...(user && user.role !== 'admin'
-    ? [{ name: 'Profile', href: '/profile' }]
-    : []),
+//   ...(user && user.role !== 'admin'
+//     ? [{ name: 'Profile', href: '/profile' }]
+//     : []),
 
-  // Show Dashboard ONLY for admins
-  ...(user && user?.role !== 'admin'
-    ? [{ name: 'Dashboard', href: '/admin' }]
-    : []),
+//   // Show Dashboard ONLY for admins
+//   ...(user && user?.role !== 'admin'
+//     ? [{ name: 'Dashboard', href: '/admin' }]
+//     : []),
 ];
 
 
