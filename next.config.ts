@@ -3,8 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   env: {
-    NEXT_PUBLIC_API_URL: 'http://localhost:5000',
-    BACKEND_URL: 'http://localhost:5000',
+    NEXT_PUBLIC_API_URL: 'https://devine-backend-889o.onrender.com',
+    BACKEND_URL: 'https://devine-backend-889o.onrender.com',
   },
 };
 

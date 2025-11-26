@@ -50,7 +50,7 @@ function ServicesClient() {
             description: backendService.description,
             durationMinutes: backendService.durationMinutes,
             priceINR: backendService.priceINR,
-            image: backendService.images?.[0] || '',
+            image: backendService.images?.[0] || backendService.image || '',
             duration: backendService.duration,
             location: backendService.location,
             language: backendService.pujaLanguage,
