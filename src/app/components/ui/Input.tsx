@@ -1,7 +1,9 @@
 'use client';
 
-import React, { JSX } from 'react';
-import { cn } from './theme';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cn as themeClasses } from './theme';
+import { cn } from '../../../lib/utils';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -15,30 +17,71 @@ export default function Input({
   icon,
   className = '',
   ...props
-}: InputProps): JSX.Element {
-  const inputClasses = `${cn.input.default} ${error ? cn.input.error : ''} ${className}`;
-  
+}: InputProps) {
+  const [focused, setFocused] = useState(false);
+  const [hasValue, setHasValue] = useState(false);
+
   return (
-    <div className="space-y-2">
-      {label && (
-        <label className="block text-sm font-medium text-gray-300">
-          {label}
-        </label>
-      )}
+    <div className="relative group">
       <div className="relative">
-        {icon && (
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            {icon}
-          </div>
-        )}
-        <input
-          className={`${inputClasses} ${icon ? 'pl-10' : ''}`}
-          {...props}
+        {/* Ethereal Glow Background */}
+        <motion.div
+          className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-600 opacity-0 blur transition duration-500"
+          animate={{ opacity: focused ? 0.5 : 0 }}
         />
+        
+        <div className="relative flex items-center">
+          {icon && (
+            <div className={cn("absolute left-3 transition-colors duration-300", focused ? "text-orange-400" : "text-gray-500")}>
+              {icon}
+            </div>
+          )}
+          
+          <input
+            className={cn(
+              "w-full bg-gray-900/90 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-transparent focus:outline-none focus:border-transparent transition-all duration-300",
+              icon ? "pl-10" : "",
+              error ? "border-red-500" : "",
+              className
+            )}
+            onFocus={() => setFocused(true)}
+            onBlur={(e) => {
+              setFocused(false);
+              setHasValue(!!e.target.value);
+            }}
+            onChange={(e) => setHasValue(!!e.target.value)}
+            {...props}
+          />
+
+          {/* Floating Label */}
+          {label && (
+            <label
+              className={cn(
+                "absolute left-4 transition-all duration-300 pointer-events-none",
+                icon ? "left-10" : "",
+                (focused || hasValue || props.value) 
+                  ? "-top-2.5 text-xs text-orange-400 bg-gray-900 px-1" 
+                  : "top-3 text-gray-500"
+              )}
+            >
+              {label}
+            </label>
+          )}
+        </div>
       </div>
-      {error && (
-        <p className="text-sm text-red-500">{error}</p>
-      )}
+      
+      <AnimatePresence>
+        {error && (
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="mt-1 text-xs text-red-500 pl-1"
+          >
+            {error}
+          </motion.p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -53,24 +96,60 @@ export function Textarea({
   error,
   className = '',
   ...props
-}: TextareaProps): JSX.Element {
-  const textareaClasses = `${cn.input.default} ${error ? cn.input.error : ''} ${className}`;
-  
+}: TextareaProps) {
+  const [focused, setFocused] = useState(false);
+  const [hasValue, setHasValue] = useState(false);
+
   return (
-    <div className="space-y-2">
-      {label && (
-        <label className="block text-sm font-medium text-gray-300">
-          {label}
-        </label>
-      )}
-      <textarea
-        className={textareaClasses}
-        rows={4}
-        {...props}
-      />
-      {error && (
-        <p className="text-sm text-red-500">{error}</p>
-      )}
+    <div className="relative group">
+      <div className="relative">
+        <motion.div
+          className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-600 opacity-0 blur transition duration-500"
+          animate={{ opacity: focused ? 0.5 : 0 }}
+        />
+        
+        <textarea
+          className={cn(
+            "w-full bg-gray-900/90 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-transparent focus:outline-none focus:border-transparent transition-all duration-300",
+            error ? "border-red-500" : "",
+            className
+          )}
+          rows={4}
+          onFocus={() => setFocused(true)}
+          onBlur={(e) => {
+            setFocused(false);
+            setHasValue(!!e.target.value);
+          }}
+          onChange={(e) => setHasValue(!!e.target.value)}
+          {...props}
+        />
+
+        {label && (
+          <label
+            className={cn(
+              "absolute left-4 transition-all duration-300 pointer-events-none",
+              (focused || hasValue || props.value)
+                ? "-top-2.5 text-xs text-orange-400 bg-gray-900 px-1"
+                : "top-3 text-gray-500"
+            )}
+          >
+            {label}
+          </label>
+        )}
+      </div>
+
+      <AnimatePresence>
+        {error && (
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="mt-1 text-xs text-red-500 pl-1"
+          >
+            {error}
+          </motion.p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

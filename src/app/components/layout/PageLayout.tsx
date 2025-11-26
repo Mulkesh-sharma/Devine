@@ -34,7 +34,7 @@ export default function PageLayout({
           showLogo={headerLogo}
         />
       )}
-      <main className={cn.layout.container}>
+      <main className={`${cn.layout.container} pt-[90px]`}>
         {children}
       </main>
     </div>
