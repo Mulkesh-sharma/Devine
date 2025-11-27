@@ -36,6 +36,7 @@ export default function UserBookingsPage() {
   }, [isAuthenticated, user, authLoading]);
 
   const fetchBookings = async () => {
+    if (!user) return;
     try {
       setLoading(true);
       const res = await fetch(`/api/users/me/bookings?userId=${user._id}`, {
