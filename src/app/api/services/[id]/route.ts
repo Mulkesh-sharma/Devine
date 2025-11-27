@@ -7,7 +7,10 @@ export async function GET(
 ) {
     try {
         const { id } = await params;
-        const backendResponse = await fetch(`${SERVER_API_ENDPOINTS.SERVICES.GET_BY_ID(id)}`, {
+        const backendUrl = SERVER_API_ENDPOINTS.SERVICES.GET_BY_ID(id);
+        console.log('Fetching service details from:', backendUrl);
+
+        const backendResponse = await fetch(backendUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -16,8 +19,10 @@ export async function GET(
         });
 
         const data = await backendResponse.json();
+        console.log('Backend service response status:', backendResponse.status);
 
         if (!backendResponse.ok) {
+            console.log('Backend service error data:', data);
             return NextResponse.json(data, { status: backendResponse.status });
         }
 
