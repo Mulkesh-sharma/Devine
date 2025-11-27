@@ -19,6 +19,7 @@ interface AuthContextProps {
   login: (user: User, token: string) => void;
   logout: () => void;
   isAuthenticated: boolean;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -27,12 +28,14 @@ const AuthContext = createContext<AuthContextProps>({
   login: () => { },
   logout: () => { },
   isAuthenticated: false,
+  loading: true,
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // 🔥 Restore auth from localStorage on reload
   useEffect(() => {
@@ -49,6 +52,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.error("Failed to load auth:", err);
       localStorage.removeItem('user');
       localStorage.removeItem('token');
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -73,7 +78,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated, loading }}>
       {children}
     </AuthContext.Provider>
   );

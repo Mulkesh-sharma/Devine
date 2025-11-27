@@ -114,9 +114,18 @@ export default function AdminPage() {
             <h1 className="text-2xl font-bold">Admin Dashboard</h1>
             <p className="text-gray-600 dark:text-gray-400">Manage all poojas</p>
           </div>
-          <Button onClick={() => router.push('/admin/components/add')}>
-            Add New Pooja
-          </Button>
+          <div className="flex gap-3">
+            <Button 
+              variant="outline" 
+              onClick={() => router.push('/admin/bookings')}
+              className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+            >
+              Manage Bookings
+            </Button>
+            <Button onClick={() => router.push('/admin/components/add')}>
+              Add New Pooja
+            </Button>
+          </div>
         </div>
 
         {error ? (

@@ -3,6 +3,7 @@
 import React, { JSX } from 'react';
 import { cn } from '../ui';
 import Header from './Header';
+import PullToRefresh from '../ui/PullToRefresh';
 
 interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -26,17 +27,19 @@ export default function PageLayout({
   const layoutClasses = `min-h-screen ${gradient ? cn.gradients.dark : 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900'} text-white ${className}`;
   
   return (
-    <div className={layoutClasses} {...props}>
-      {showHeader && (
-        <Header 
-          title={title} 
-          subtitle={subtitle} 
-          showLogo={headerLogo}
-        />
-      )}
-      <main className={`${cn.layout.container} pt-[90px]`}>
-        {children}
-      </main>
-    </div>
+    <PullToRefresh>
+      <div className={layoutClasses} {...props}>
+        {showHeader && (
+          <Header 
+            title={title} 
+            subtitle={subtitle} 
+            showLogo={headerLogo}
+          />
+        )}
+        <main className={`${cn.layout.container} pt-[90px]`}>
+          {children}
+        </main>
+      </div>
+    </PullToRefresh>
   );
 }

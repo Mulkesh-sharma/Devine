@@ -68,6 +68,8 @@ export default function Navbar() {
     { name: 'Home', href: homeLink },
     { name: 'About', href: '/about' },
     { name: 'All Pujas', href: '/services' },
+    ...(user?.role === 'admin' ? [{ name: 'Bookings', href: '/admin/bookings' }] : []),
+    ...(user ? [{ name: 'My Bookings', href: '/bookings' }] : []),
     { name: 'Articles', href: '/articles' },
     { name: 'Privacy Policy', href: '/privacyPolicy' },
   ];
