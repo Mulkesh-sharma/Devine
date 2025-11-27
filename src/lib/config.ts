@@ -18,6 +18,8 @@ type EndpointFactory = (id: IdParam) => string;
 interface AuthEndpoints {
   readonly LOGIN: string;
   readonly REGISTER: string;
+  readonly VERIFY: string;
+  readonly RESEND: string;
   readonly CREATE_ADMIN: string;
   readonly GET_ME: string;
   readonly UPDATE_PROFILE: string;
@@ -72,6 +74,8 @@ const createEndpoints = (baseUrl: string): GeneratedEndpoints => {
     AUTH: {
       LOGIN: `${apiBase}/auth/login`,
       REGISTER: `${apiBase}/auth/register`,
+      VERIFY: `${apiBase}/auth/verify`,
+      RESEND: `${apiBase}/auth/resend`,
       CREATE_ADMIN: `${apiBase}/auth/create-admin`,
       GET_ME: `${apiBase}/auth/me`,
       UPDATE_PROFILE: `${apiBase}/auth/profile`,
@@ -151,7 +155,14 @@ export const apiRequest = async <TResponse = unknown>(
     const data = await response.json();
 
     if (!response.ok) {
-      const error = new Error((data as { message?: string }).message ?? 'Something went wrong');
+      const errorData = data as { message?: string; errors?: any[] };
+      const errorMessage = errorData.message ?? 'Something went wrong';
+      const error = new Error(errorMessage);
+      // Attach validation errors if present
+      if (errorData.errors) {
+        (error as any).errors = errorData.errors;
+        console.error('Validation Errors:', errorData.errors);
+      }
       throw Object.assign(error, { status: response.status });
     }
 
