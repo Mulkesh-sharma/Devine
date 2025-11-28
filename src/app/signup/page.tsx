@@ -124,7 +124,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[70px] ">
       <ThreeBackground />
       
       <div className="relative z-10 bg-white/80 backdrop-blur-md p-8 rounded-xl shadow-2xl w-full max-w-md border border-white/50">

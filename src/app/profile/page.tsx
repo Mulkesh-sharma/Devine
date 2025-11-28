@@ -27,7 +27,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100 pt-[100px] pb-12 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">

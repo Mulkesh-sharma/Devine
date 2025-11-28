@@ -137,7 +137,7 @@ export default function Navbar() {
         </Link>
 
         {/* SEARCH BAR (Obsidian) */}
-        <div className="relative hidden md:block flex-1 mx-8 max-w-md group">
+        <div className="relative hidden lg:block flex-1 mx-8 max-w-md group">
           <div className="absolute inset-0 bg-orange-500/10 rounded-full blur-md opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" />
           <input
             type="text"
@@ -171,7 +171,7 @@ export default function Navbar() {
         </div>
 
         {/* DESKTOP NAV */}
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-2">
           {navLinks.map((link) => (
             <NavLink key={link.name} href={link.href}>
               {link.name}
@@ -212,7 +212,7 @@ export default function Navbar() {
 
         {/* MOBILE MENU BUTTON */}
         <button
-          className="md:hidden p-2 text-amber-100 hover:text-orange-400 transition-colors"
+          className="lg:hidden p-2 text-amber-100 hover:text-orange-400 transition-colors"
           onClick={() => setOpen(!open)}
         >
           {open ? <CloseIcon /> : <MenuIcon />}
@@ -223,7 +223,7 @@ export default function Navbar() {
       <motion.div 
         initial={false}
         animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
-        className="md:hidden overflow-hidden bg-gray-900/95 backdrop-blur-xl border-t border-orange-500/20"
+        className="lg:hidden overflow-hidden bg-gray-900/95 backdrop-blur-xl border-t border-orange-500/20"
       >
         <div className="flex flex-col p-6 gap-4">
           {navLinks.map((link) => (
