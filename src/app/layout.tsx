@@ -3,6 +3,7 @@ import './globals.css';
 import Providers from './components/Providers';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ChatWidget from './components/ChatWidget';
 import React from 'react';
 
 export const metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
+            <ChatWidget />
           </div>
         </Providers>
       </body>
